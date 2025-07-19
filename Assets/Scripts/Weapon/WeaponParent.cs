@@ -1,16 +1,25 @@
+using System.Collections;
 using UnityEngine;
 
 public class WeaponParent : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private Animator animator;
+    [SerializeField] private float delay = 0.3f;
+    private bool attackBlocked;
+
+    public void Attack()
     {
-        
+        if (attackBlocked)
+            return;
+        animator.SetTrigger("Attack");
+        attackBlocked = true;
+        StartCoroutine(DelayAttack());
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator DelayAttack()
     {
-        
+        yield return new WaitForSeconds(delay);
+        attackBlocked = false;
+
     }
 }
