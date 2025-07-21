@@ -7,10 +7,20 @@ public class WeaponParent : MonoBehaviour
     [SerializeField] private float delay = 0.3f;
     private bool attackBlocked;
 
+    void Update()
+    {
+        // Detect left mouse click
+        if (Input.GetMouseButtonDown(0))
+        {
+            Attack();
+        }
+    }
+
     public void Attack()
     {
         if (attackBlocked)
             return;
+        
         animator.SetTrigger("Attack");
         attackBlocked = true;
         StartCoroutine(DelayAttack());
